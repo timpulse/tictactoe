@@ -19,6 +19,9 @@ namespace TicTacToe.Models
         public int Size { get; set; }
         public String Name { get; set; }
         public List<Play> Plays { get; set; }
+        /// <summary>
+        /// Used to keep track of which player owns which mark
+        /// </summary>
         public Dictionary<String, Mark> PlayerMarkLegend { get; set; }
         public String Winner { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
