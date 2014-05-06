@@ -17,6 +17,8 @@ namespace TicTacToe.Controllers
             return View();
         }
 
+        //
+        // GET: /Game/Play/
         public ActionResult Play(String name, String gameName)
         {
             Game game = null;

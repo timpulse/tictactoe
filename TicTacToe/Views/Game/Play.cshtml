@@ -76,10 +76,11 @@
         $(function () {
             // Create a function that the hub can call back to update the game on the page.
             game.client.updateGameOnPage = function (game) {
-                // 
+                // Clear table
                 var $_gameTableBody = $('#game tbody');
                 $_gameTableBody.empty();
 
+                // Populate table with buttons representing each possible move
                 for (var x = 1; x < 4; x++) {
                     $_gameTableBody.append('<tr>');
                     $_gameTableBody.append('<td>' + x + '</td>');
@@ -92,16 +93,20 @@
                 }
 
                 if (game != null) {
+                    // Update buttons with existing plays
                     for (i in game.Plays) {
                         var btn = $('#game tbody input[data-x="' + game.Plays[i].X + '"]input[data-y="' + game.Plays[i].Y + '"]');
 
                         btn.val(game.Plays[i].Mark);
+
+                        // Disable and add css class to display as selected
                         btn.attr('disabled', 'disabled');
                         btn.addClass('marked');
                     }
 
                     var playerName = $('#name').val();
 
+                    // Check status of game and display appropriate message
                     if (game.Status == 'DRAW') {
                         $('#turn').text("Draw.");
                         alert('Game finished. Draw.');
@@ -116,7 +121,7 @@
                             alert('You lost!');
                         }
                     } else {
-                        // Check whether it is the current player's turn
+                        // Check whether it is the current player's turn and display according message
                         if (game.Plays.length > 0) {
                             var lastPlay = game.Plays[game.Plays.length - 1];
                             if (lastPlay.PlayerName == playerName) {
@@ -141,6 +146,8 @@
             });
         });
 
+        // Event delegation for buttons in table.
+        // Sends move to server on click
         $(document).on('click', '#game tbody input[type="button"]', function () {
             var x = $(this).attr('data-x');
             var y = $(this).attr('data-y');
